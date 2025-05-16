@@ -1,0 +1,37 @@
+<dialog #nameModal id="name-modal" class="modal">
+    <div class="modal-box">
+        <h3 class="text-lg font-bold">Bitte gib einen Namen ein</h3>
+        <label class="input validator">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g 
+                    stroke-linejoin="round" 
+                    stroke-linecap="round" 
+                    stroke-width="2.5" 
+                    fill="none" 
+                    stroke="currentColor"
+                >
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </g>
+            </svg>
+            <input #nameInput
+                type="text"
+                required
+                placeholder="Username"
+                pattern="[a-zA-Z0-9\-\.]*[a-zA-Z0-9\-\. ]*"
+                minlength="3"
+                maxlength="20"
+                title="Nur Buchstaben, Zahlen und Bindestriche erlaubt. Mindestens 3 Zeichen, maximal 20 Zeichen."
+                (input)="onNameChange($event)"
+            />
+        </label>
+        <p class="validator-hint">
+            3 bis 20 Zeichen, nur Buchstaben, Zahlen, Punkten und Bindestrichen
+        </p>
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn btn-primary" (click)="onSubmit()" [disabled]="!inputIsValid()">Beitreten</button>
+            </form>
+        </div>
+    </div>
+</dialog>
