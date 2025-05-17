@@ -1,4 +1,4 @@
-
+<div class="grid grid-cols-2 gap-0 mx-0">
     <div class="badge badge-outline badge-primary badge-xl">
         {{playerName}} 
         <div *ngIf="selectedCard; else notSelected">
@@ -14,3 +14,10 @@
             </div>
         </ng-template>
     </div>
+
+    <div class="chat chat-start">
+        <div class="chat-bubble">
+            {{choice}}
+        </div>
+    </div>
+</div>

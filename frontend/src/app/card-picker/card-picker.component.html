@@ -7,6 +7,7 @@
             'btn-outline': selectedCard !== label,
         }"
         (click)="handleClick(label)"
+        [disabled]="revealed"
     >
         {{ label }}
     </button>

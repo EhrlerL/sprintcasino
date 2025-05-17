@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { LocalService } from '../local.service';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { NameService } from '../name.service';
 
 @Component({
   selector: 'app-name-input',
@@ -7,13 +7,13 @@ import { LocalService } from '../local.service';
   templateUrl: './name-input.component.html',
   styleUrl: './name-input.component.css'
 })
-export class NameInputComponent implements AfterViewInit {
+export class NameInputComponent {
   
   playerName: string = localStorage.getItem('playerName') || '';
   @ViewChild('nameModal') nameModal!: ElementRef;
   @ViewChild('nameInput') nameInput!: ElementRef;
 
-  constructor() {}
+  constructor(private nameService: NameService) {}
 
   onNameChange(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -21,7 +21,7 @@ export class NameInputComponent implements AfterViewInit {
   }
 
   onSubmit() {
-    localStorage.setItem('playerName', this.playerName);
+    this.nameService.setPlayerName(this.playerName);
     console.log('Submitted name:', this.playerName);
   }
 
@@ -38,14 +38,14 @@ export class NameInputComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (!localStorage.getItem('playerName')) {
-      // Show the modal if playerName is not set
-      console.log(this.nameModal)
-      this.nameModal.nativeElement.showModal();
-      console.log('Modal shown');
-    } else {
-      this.nameInput.nativeElement.value = localStorage.getItem('playerName');
-    }
+    this.nameService.playerName$.subscribe((name) => {
+      this.playerName = name || '';
+    });
+    if (this.playerName === '') {
+        this.nameModal.nativeElement.showModal();
+      } else {
+        this.nameInput.nativeElement.value = localStorage.getItem('playerName');
+      }
   }
 
 
