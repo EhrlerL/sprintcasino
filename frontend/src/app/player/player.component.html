@@ -1,8 +1,16 @@
 
     <div class="badge badge-outline badge-primary badge-xl">
         {{playerName}} 
-        <div class="inline-grid *:[grid-area:1/1]">
-            <div class="status status-{{status}} animate-ping status-xl"></div>
-            <div class="status status-{{status}} status-xl"></div>
+        <div *ngIf="selectedCard; else notSelected">
+            <div class="inline-grid *:[grid-area:1/1]">
+                <div class="status status-success animate-ping status-xl"></div>
+                <div class="status status-success status-xl"></div>
+            </div>
         </div>
+        <ng-template #notSelected>
+            <div class="inline-grid *:[grid-area:1/1]">
+                <div class="status status-error animate-ping status-xl"></div>
+                <div class="status status-error status-xl"></div>
+            </div>
+        </ng-template>
     </div>
