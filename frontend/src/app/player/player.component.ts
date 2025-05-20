@@ -35,17 +35,10 @@ export class PlayerComponent {
   // The selectedCard is retrieved from the CardService
   // and is updated whenever a new card is selected
   ngOnInit(): void {
-    /*this.cardService.selectedCard$.subscribe(card => {
-      this.selectedCard = card;
-    });*/
-    /*this.nameService.playerName$.subscribe((name) => {
-      this.playerName = name || '';
-    });*/
     this.socketService.lobby$.subscribe((lobby) => {
       if (lobby) {
         this.lobby = lobby;
         this.players = lobby?.players || {};
-        console.log('Players:', this.players);
         this.playerName = this.socketService.getSelfName();
         const socketId = this.socketService.socketId;
         this.selectedCard = socketId
@@ -56,6 +49,7 @@ export class PlayerComponent {
         this.choice = this.selectedCard || 'Keine';
       } else {
         this.choice = '...';
+        this.selectedCard = "Keine";
       }
     });
   }

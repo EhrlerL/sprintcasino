@@ -1,25 +1,36 @@
-<div class="grid grid-cols-2 gap-0 mx-0">
-    <div *ngFor="let player of (players | keyvalue)">
-        <div class="badge badge-outline badge-primary badge-xl">
-            {{player.value.name}}  
+<div class="grid grid-cols-6 gap-4">
+    <div *ngFor="let player of (players | keyvalue)" class="grid-rows-2 gap-4">
+        <div class="card bg-base-200 shadow-sm row-span-1">
+            <div class="card-body">
+                <div class="card-title justify-center center">
+                    <span *ngIf="!lobby.revealed">...</span>
+                    <span *ngIf="lobby.revealed">{{player.value.vote || '-'}}</span>
+                </div>
+            </div>
+            <div class="card-actions justify-center">
+            </div>
+        </div>
+
+        <span 
+            class="badge badge-outline badge-sm row-span-1" 
+            [ngClass]="{
+                'badge-primary': player.value.name !== playerName,
+                'badge-success': player.value.name === playerName,
+            }"
+        >
+            {{player.value.name}}
             <div *ngIf="player.value.vote; else notSelected">
                 <div class="inline-grid *:[grid-area:1/1]">
-                    <div class="status status-success animate-ping status-xl"></div>
-                    <div class="status status-success status-xl"></div>
+                    <div class="status status-success animate-ping"></div>
+                    <div class="status status-success"></div>
                 </div>
             </div>
             <ng-template #notSelected>
                 <div class="inline-grid *:[grid-area:1/1]">
-                    <div class="status status-error animate-ping status-xl"></div>
-                    <div class="status status-error status-xl"></div>
+                    <div class="status status-error animate-ping"></div>
+                    <div class="status status-error"></div>
                 </div>
             </ng-template>
-        </div>
-        <div class="chat chat-start">
-            <div class="chat-bubble">
-                <span *ngIf="!lobby.revealed">{{player.value.vote ? '✅' : '...'}}</span>
-                <span *ngIf="lobby.revealed">{{player.value.vote || '-'}}</span>
-            </div>
-        </div>
+        </span>
     </div>
 </div>

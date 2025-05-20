@@ -8,10 +8,11 @@ import { NameInputComponent } from './name-input/name-input.component';
 import { PlayerComponent } from './player/player.component';
 import { CardPickerComponent } from './card-picker/card-picker.component';
 import { ControlsComponent } from './controls/controls.component';
+import { TableComponent } from './table/table.component';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, FormsModule, NameInputComponent, PlayerComponent, CardPickerComponent, ControlsComponent],
+  imports: [CommonModule, FormsModule, NameInputComponent, PlayerComponent, CardPickerComponent, ControlsComponent, TableComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

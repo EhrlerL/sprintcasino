@@ -23,11 +23,11 @@ export class CardPickerComponent {
 
   ngOnInit() {
     this.socketService.lobby$.subscribe((lobby) => {
+      this.selectedCard = lobby.players[this.socketService.getSelfId()]?.vote || "Keine";
       if (lobby.revealed) {
         this.revealed = lobby.revealed;
       } else {
         this.revealed = false;
-        this.selectedCard = "Keine";
       }
     });
   }

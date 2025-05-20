@@ -35,6 +35,10 @@ export class SocketService {
   }
 
   getSelfId() {
+    if (!this.socketId) {
+      console.error('Socket ID is undefined');
+      return '';
+    }
     return this.socketId;
   }
 
