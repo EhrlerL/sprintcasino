@@ -1,4 +1,4 @@
-<div class="grid grid-cols-2 gap-3" *ngIf="isAdmin(); else notAdmin">
+<div class="flex flex-cols-2 gap-5 justify-center" *ngIf="isAdmin(); else notAdmin">
     <div>
         <button class="btn btn-success btn-lg" (click)="reveal()" [disabled]="revealed">Karten zeigen</button>
     </div>

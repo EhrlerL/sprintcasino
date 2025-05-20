@@ -4,5 +4,11 @@
 }
 
 .card-title {
+    margin: 0;
     font-size: 4.75rem;
+}
+
+.card-actions {
+    margin-left: 0.2rem;
+    margin-bottom: 0.2rem;
 }
