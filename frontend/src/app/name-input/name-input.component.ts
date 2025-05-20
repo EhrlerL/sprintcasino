@@ -1,19 +1,19 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NameService } from '../name.service';
+import { SocketService } from '../socket.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-name-input',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './name-input.component.html',
   styleUrl: './name-input.component.css'
 })
 export class NameInputComponent {
   
-  playerName: string = localStorage.getItem('playerName') || '';
+  playerName: string = '';
   @ViewChild('nameModal') nameModal!: ElementRef;
-  @ViewChild('nameInput') nameInput!: ElementRef;
 
-  constructor(private nameService: NameService) {}
+  constructor(private socketService: SocketService) {}
 
   onNameChange(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -21,7 +21,7 @@ export class NameInputComponent {
   }
 
   onSubmit() {
-    this.nameService.setPlayerName(this.playerName);
+    this.socketService.join(this.playerName);
     console.log('Submitted name:', this.playerName);
   }
 
@@ -38,15 +38,15 @@ export class NameInputComponent {
   }
 
   ngAfterViewInit() {
-    this.nameService.playerName$.subscribe((name) => {
-      this.playerName = name || '';
+    this.socketService.socket.on('connect', () => {
+      this.socketService.lobby$.subscribe((lobby) => {
+        if (lobby) {
+          this.playerName = this.socketService.getSelfName();
+        } else {
+          this.playerName = "ERROR - LOBBY UNDEFINED";
+        }
+      });
+      this.nameModal.nativeElement.showModal();
     });
-    if (this.playerName === '') {
-        this.nameModal.nativeElement.showModal();
-      } else {
-        this.nameInput.nativeElement.value = localStorage.getItem('playerName');
-      }
   }
-
-
 }

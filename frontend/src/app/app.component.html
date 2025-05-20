@@ -1,8 +1,10 @@
 <app-name-input/>
 
+<div *ngIf="waiting">
+    <span class="loading loading-spinner"></span>
+</div>
 
-
-<div class="grid grid-cols-12 gap-5 mx-5 my-5">
+<div *ngIf="!waiting" class="grid grid-cols-12 gap-5 mx-5 my-5">
 
     <div class="border-1">
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RevealedService } from '../revealed.service';
+import { SocketService } from '../socket.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,17 +12,26 @@ import { CommonModule } from '@angular/common';
 export class ControlsComponent {
 
   revealed: boolean | null = false;
-  constructor(private revealedService: RevealedService) {}
+  constructor(private revealedService: RevealedService, private socketService: SocketService) {
+    this.socketService.lobby$.subscribe((lobby) => {
+      if (lobby) {
+        this.revealed = lobby.revealed;
+      }
+    }
+    );
+  }
 
   reveal() {
-    this.revealedService.revealCards();
+    //this.revealedService.revealCards();
     this.revealed = true;
+    this.socketService.reveal();
     console.log('Reveal button clicked');
   }
 
   reset() {
-    this.revealedService.newRound();
+    //this.revealedService.newRound();
     this.revealed = false;
+    this.socketService.reset();
     console.log('Reset button clicked');
   }
 
