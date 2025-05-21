@@ -43,5 +43,17 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
-        source: "deploy/*"
+        source: "deploy/**"
         target: ${{ secrets.REMOTE_DIR }}
+        port: 22
+        
+    - name: Restart backend with SSH (PM2)
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: |
+          cd ${{ secrets.REMOTE_DIR }}/deploy/backend
+          npm install
+          pm2 restart myapp || pm2 start index.js --name myapp
