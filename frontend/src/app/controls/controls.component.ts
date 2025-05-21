@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SocketService } from '../socket.service';
 import { CommonModule } from '@angular/common';
+import { SocketService } from '../socket.service';
 
 @Component({
   selector: 'app-controls',
@@ -32,6 +32,7 @@ export class ControlsComponent {
     console.log('Reset button clicked');
   }
 
+  // TO BE CHANGED
   isAdmin() {
     return localStorage.getItem('playerName') == 'Leo';
   }

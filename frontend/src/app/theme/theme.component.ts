@@ -11,6 +11,7 @@ export class ThemeComponent {
 
   themes: string[] = ["light", "dark", "caramellatte", "coffee", "retro", "forest", "aqua", "cyberpunk", "valentine"];
 
+  // save theme in local storage and set theme for site
   setTheme(theme: string) {
     localStorage.setItem('theme', theme);
     document.body.setAttribute('data-theme', theme);

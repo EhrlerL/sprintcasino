@@ -15,6 +15,7 @@ export class CardPickerComponent {
 
   constructor(private socketService: SocketService) {}
 
+  // set selectedCard to the clicked card and save in backend
   handleClick(label: string) {
     this.selectedCard = label;
     this.socketService.vote(label);

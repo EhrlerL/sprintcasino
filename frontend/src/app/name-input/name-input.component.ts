@@ -15,16 +15,21 @@ export class NameInputComponent {
 
   constructor(private socketService: SocketService) {}
 
+  // keep track of name input, update playerName
   onNameChange(event: Event) {
     const input = event.target as HTMLInputElement;
     this.playerName = input.value;
   }
 
+  // save name in backend and local storage
   onSubmit() {
     this.socketService.join(this.playerName);
-    console.log('Submitted name:', this.playerName);
   }
 
+  // additional validation for name input
+  // only letters, numbers, dashes and dots allowed
+  // length between 3 and 20 characters
+  // pattern examples: "M. Mustermann", "Max Mustermann", "Max M.", "Max M. Mustermann", "Max", "Ma-Mu., BigmaxMenu"
   inputIsValid(): boolean {
     if (!/[a-zA-Z0-9\-\.]*[a-zA-Z0-9\-\. ]*/.test(this.playerName)) {
       return false;
@@ -43,7 +48,7 @@ export class NameInputComponent {
         if (lobby) {
           this.playerName = this.socketService.getSelfName();
         } else {
-          this.playerName = "ERROR - LOBBY UNDEFINED";
+          this.playerName = "ERROR - LOBBY NOT FOUND";
         }
       });
       this.nameModal.nativeElement.showModal();
