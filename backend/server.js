@@ -63,5 +63,5 @@ io.on('connection', socket => {
 });
 
 server.listen(3000, () => {
-  console.log('Backend running on http://localhost:3000');
+  console.log('Backend running on port 3000');
 });
