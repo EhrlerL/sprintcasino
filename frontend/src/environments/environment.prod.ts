@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  socketUrl: '/backend'
+  socketUrl: 'http://planning-poker.ehrler-web.de:3000'
 };

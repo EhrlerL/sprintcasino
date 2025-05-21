@@ -11,7 +11,7 @@ export class SocketService {
   public socketId: string | undefined;
 
   constructor() {
-    this.socket = io("http://localhost:3000");
+    this.socket = io(environment.socketUrl);
     this.socket.on('connect', () => { 
       this.socketId = this.socket.id;
      });
