@@ -32,9 +32,10 @@ export class ControlsComponent {
     console.log('Reset button clicked');
   }
 
-  // TO BE CHANGED
-  isAdmin() {
-    return localStorage.getItem('playerName') == 'Leo';
+  // Check if the current player is the admin
+  isAdmin(): boolean {
+    const selfPlayer = this.socketService.getSelfPlayer();
+    return selfPlayer?.isAdmin || false;
   }
 
 }

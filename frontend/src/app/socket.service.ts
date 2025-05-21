@@ -66,6 +66,10 @@ export class SocketService {
     }
   }
 
+  getSelfPlayer() {
+    return this.lobby$?.getValue()?.players[this.socketId || ''];
+  }
+
   calculateAverage(votes: string[]): string {
     let total = 0;
     votes.forEach((vote) => {

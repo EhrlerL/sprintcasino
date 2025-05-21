@@ -18,9 +18,11 @@ io.on('connection', socket => {
   console.log(`Client connected: ${socket.id}`);
 
   socket.on('join', name => {
-    lobby.players[socket.id] = { id: socket.id, name, vote: null };
+    // assign Admin to the first player
+    const isFirstPlayer = Object.keys(lobby.players).length === 0;
+    lobby.players[socket.id] = { name, vote: null, isAdmin: isFirstPlayer };
     io.emit('lobbyUpdate', lobby);
-    console.log(`Player joined: ${name}`);
+    console.log(`Player joined: ${name}, Admin: ${isFirstPlayer}`);
   });
 
   socket.on('vote', vote => {
@@ -45,7 +47,16 @@ io.on('connection', socket => {
   });
 
   socket.on('disconnect', () => {
+    const wasAdmin = lobby.players[socket.id]?.isAdmin;
     delete lobby.players[socket.id];
+
+    // Reassign Admin if the admin disconnects
+    if (wasAdmin && Object.keys(lobby.players).length > 0) {
+      const newAdminId = Object.keys(lobby.players)[0];
+      lobby.players[newAdminId].isAdmin = true;
+      console.log(`New Admin assigned: ${lobby.players[newAdminId].name}`);
+    }
+    
     io.emit('lobbyUpdate', lobby);
     console.log(`Client disconnected: ${socket.id}`);
   });
