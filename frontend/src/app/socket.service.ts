@@ -65,4 +65,32 @@ export class SocketService {
       return frontendName;
     }
   }
+
+  calculateAverage(votes: string[]): string {
+    let total = 0;
+    votes.forEach((vote) => {
+      if (vote !== "?" && vote !== "∞" && vote !== "☕️" && vote !== "Keine" && vote !== "-" && vote !== null) {
+        total += parseInt(vote);
+        console.log("Total: ", total);
+      }
+    });
+    if (total == 0) {
+      return "-";
+    }
+    return Math.round(total / votes.length).toString();
+  }
+
+  calculateMedian(votes: string[]): string {
+    votes.sort();
+    let newVotes: number[] = [];
+    votes.forEach((vote) => {
+      if (vote !== "?" && vote !== "∞" && vote !== "☕️" && vote !== "Keine" && vote !== "-" && vote !== null) {
+        newVotes.push(parseInt(vote));
+      }
+    });
+    if (newVotes.length == 0) {
+      return "-";
+    }
+    return newVotes[Math.round(newVotes.length / 2) - 1].toString();
+  }
 }

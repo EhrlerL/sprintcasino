@@ -32,6 +32,14 @@ export class PlayerComponent {
     
   }
 
+  // Player's vote is more than 2 away from the average vote
+  isOff(): boolean {
+    const votes = Object.values(this.lobby.players).map((player: any) => player.vote);
+    const average = this.socketService.calculateAverage(votes);
+    const vote = parseInt(this.selectedCard || '0');
+    return Math.abs(vote - parseInt(average)) > 2;
+  }
+
   // The selectedCard is retrieved from the CardService
   // and is updated whenever a new card is selected
   ngOnInit(): void {

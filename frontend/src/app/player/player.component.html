@@ -1,7 +1,12 @@
 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-2">
     <div *ngFor="let player of (players | keyvalue)" class="flex flex-col items-center gap-2">
         <!-- CARD -->
-        <div class="card bg-base-300 shadow-sm">
+        <div 
+            class="card bg-base-300 shadow-sm"
+            [ngClass]="{
+                'bg-base-300': isOff(),
+                'bg-error': !isOff(),
+            }">
             <div class="card-body">
                 <div class="card-title justify-center center">
                     <span *ngIf="!lobby.revealed" class="mb-5">...</span>

@@ -1,11 +1,15 @@
+<!-- LOGIN -->
 <app-name-input/>
 
-<div *ngIf="waiting">
-    <span class="loading loading-spinner"></span>
+<!-- SPINNER WHILE LOADING -->
+<div *ngIf="waiting" class="flex justify-center items-center h-screen">
+    <span class="loading loading-spinner loading-xl"></span>
 </div>
 
+<!-- GAME LOBBY -->
 <div *ngIf="!waiting" class="grid grid-cols-12 gap-2 mx-2 my-2">
 
+    <!-- ROW 1 - HEADER -->
     <div class="col-span-3">
 
     </div>
@@ -18,6 +22,8 @@
 
 
 
+    <!-- ROW 2 - PLAYERS & CARDS -->
+    <!-- >lg: vertical alignment, else horizontal alignment -->
     <div class="col-span-12 lg:col-span-8">
         <app-player/>
     </div>
@@ -27,6 +33,14 @@
 
 
 
+    <!-- ROW 3 - AVERAGE AND MEDIAN -->
+    <div class="col-span-12">
+        <app-metrics/>
+    </div>
+
+
+
+    <!-- ROW 4 - LOBBY CONTROLS -->
     <div class="col-span-12">
         <app-controls/>
     </div>
