@@ -1,6 +1,6 @@
 <div class="dropdown dropdown-end">
     <div tabindex="0" role="button" class="btn m-1 bg-base-300">
-        Theme
+        {{currentTheme.name}}
         <svg
             width="12px"
             height="12px"
@@ -18,15 +18,15 @@
     >
         <div *ngFor="let t of themes">
         <li>
-            <label class="w-full btn btn-sm btn-block btn-ghost justify-start">
+            <label class="w-full btn btn-sm btn-block btn-ghost text-lg justify-start">
                 <input
                     type="radio"
                     name="theme-dropdown"
                     class="theme-controller hidden"
-                    (click)="setTheme(t)"
-                    [value]="t"
+                    (click)="setTheme(t.value)"
+                    [value]="t.value"
                 />
-                {{t}}
+                {{t.name}}
             </label>
         </li>
         </div>
