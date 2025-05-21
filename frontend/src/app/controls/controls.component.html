@@ -1,0 +1,8 @@
+<div class="flex flex-cols-2 gap-5 justify-center" *ngIf="isAdmin();">
+    <div>
+        <button class="btn btn-success btn-lg" (click)="reveal()" [disabled]="revealed">Karten zeigen</button>
+    </div>
+    <div>
+        <button class="btn btn-error btn-lg" (click)="reset()" [disabled]="!revealed">Neue Runde</button>
+    </div>
+</div>

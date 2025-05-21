@@ -1,28 +1,47 @@
+<!-- LOGIN -->
 <app-name-input/>
 
+<!-- SPINNER WHILE LOADING -->
+<div *ngIf="waiting" class="flex justify-center items-center h-screen">
+    <span class="loading loading-spinner loading-xl"></span>
+</div>
 
+<!-- GAME LOBBY -->
+<div *ngIf="!waiting" class="grid grid-cols-12 gap-2 mx-2 my-2">
 
-<div class="grid grid-cols-12 gap-5 mx-5 my-5">
-
-    <div class="border-1">
+    <!-- ROW 1 - HEADER -->
+    <div class="col-span-3">
 
     </div>
-    <div class="col-span-10 border-1">
+    <div class="col-span-6">
         <h1 class="text-3xl font-bold text-center">Sprint Casino</h1>
     </div>
-    <div class="border-1">
-
+    <div class="col-span-3 flex justify-end">
+        <app-theme/>
     </div>
 
 
 
-    <div class="col-span-2 border-1">
+    <!-- ROW 2 - PLAYERS & CARDS -->
+    <!-- >lg: vertical alignment, else horizontal alignment -->
+    <div class="col-span-12 lg:col-span-8">
         <app-player/>
     </div>
-    <div class="col-span-6 border-1">
-
+    <div class="col-span-12 lg:col-span-4 text-center">
+        <app-card-picker/>
     </div>
-    <div class="col-span-4 border-1">
 
+
+
+    <!-- ROW 3 - AVERAGE AND MEDIAN -->
+    <div class="col-span-12">
+        <app-metrics/>
+    </div>
+
+
+
+    <!-- ROW 4 - LOBBY CONTROLS -->
+    <div class="col-span-12">
+        <app-controls/>
     </div>
 </div>

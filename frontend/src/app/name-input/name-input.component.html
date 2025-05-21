@@ -2,6 +2,7 @@
     <div class="modal-box">
         <h3 class="text-lg font-bold">Bitte gib einen Namen ein</h3>
         <label class="input validator">
+            <!-- USERNAME ICON -->
             <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <g 
                     stroke-linejoin="round" 
@@ -14,7 +15,8 @@
                     <circle cx="12" cy="7" r="4" />
                 </g>
             </svg>
-            <input #nameInput
+            <!-- NAME INPUT -->
+            <input
                 type="text"
                 required
                 placeholder="Username"
@@ -23,6 +25,7 @@
                 maxlength="20"
                 title="Nur Buchstaben, Zahlen und Bindestriche erlaubt. Mindestens 3 Zeichen, maximal 20 Zeichen."
                 (input)="onNameChange($event)"
+                [(ngModel)]="playerName"
             />
         </label>
         <p class="validator-hint">

@@ -1,0 +1,14 @@
+<h3 class="text-xl font-bold">Gewählte Karte: <span class="text-primary">{{ selectedCard }}</span></h3>
+<div>
+    <button 
+        *ngFor="let label of fibonacciButtons"
+        class="btn btn-primary mx-2 my-2"
+        [ngClass]="{
+            'btn-outline': selectedCard !== label,
+        }"
+        (click)="handleClick(label)"
+        [disabled]="revealed"
+    >
+        {{ label }}
+    </button>
+</div>

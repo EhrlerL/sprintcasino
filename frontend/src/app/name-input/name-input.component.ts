@@ -1,30 +1,35 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { LocalService } from '../local.service';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { SocketService } from '../socket.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-name-input',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './name-input.component.html',
   styleUrl: './name-input.component.css'
 })
-export class NameInputComponent implements AfterViewInit {
+export class NameInputComponent {
   
-  playerName: string = localStorage.getItem('playerName') || '';
+  playerName: string = '';
   @ViewChild('nameModal') nameModal!: ElementRef;
-  @ViewChild('nameInput') nameInput!: ElementRef;
 
-  constructor() {}
+  constructor(private socketService: SocketService) {}
 
+  // keep track of name input, update playerName
   onNameChange(event: Event) {
     const input = event.target as HTMLInputElement;
     this.playerName = input.value;
   }
 
+  // save name in backend and local storage
   onSubmit() {
-    localStorage.setItem('playerName', this.playerName);
-    console.log('Submitted name:', this.playerName);
+    this.socketService.join(this.playerName);
   }
 
+  // additional validation for name input
+  // only letters, numbers, dashes and dots allowed
+  // length between 3 and 20 characters
+  // pattern examples: "M. Mustermann", "Max Mustermann", "Max M.", "Max M. Mustermann", "Max", "Ma-Mu., BigmaxMenu"
   inputIsValid(): boolean {
     if (!/[a-zA-Z0-9\-\.]*[a-zA-Z0-9\-\. ]*/.test(this.playerName)) {
       return false;
@@ -38,15 +43,15 @@ export class NameInputComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (!localStorage.getItem('playerName')) {
-      // Show the modal if playerName is not set
-      console.log(this.nameModal)
+    this.socketService.socket.on('connect', () => {
+      this.socketService.lobby$.subscribe((lobby) => {
+        if (lobby) {
+          this.playerName = this.socketService.getSelfName();
+        } else {
+          this.playerName = "ERROR - LOBBY NOT FOUND";
+        }
+      });
       this.nameModal.nativeElement.showModal();
-      console.log('Modal shown');
-    } else {
-      this.nameInput.nativeElement.value = localStorage.getItem('playerName');
-    }
+    });
   }
-
-
 }
