@@ -1,7 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @plugin "daisyui" {
     themes: 
         light --default,
-        dark --prefersdark, caramellatte, coffee, retro, forest, aqua, cyberpunk, valentine;
+        dark --prefersdark, caramellatte, coffee, retro, valentine;
+    exclude: rootscrollgutter, rootcolor;
+}
+
+body {
+    @apply bg-base-100 text-base-content;
 }

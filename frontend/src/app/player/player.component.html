@@ -18,10 +18,10 @@
 
         <!-- BADGE -->
         <span 
-            class="badge badge-outline badge-sm" 
+            class="badge badge-primary badge-md" 
             [ngClass]="{
-                'badge-secondary': player.value.name !== playerName,
-                'badge-primary': player.value.name === playerName,
+                'badge-soft': player.value.name !== playerName,
+                '': player.value.name === playerName,
             }">
             {{player.value.name}}
             <!-- STATUS -->
