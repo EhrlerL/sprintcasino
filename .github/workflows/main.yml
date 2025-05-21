@@ -1,0 +1,47 @@
+name: IONOS SSH Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Angular CLI
+      run: npm install -g @angular/cli
+
+    - name: Build Angular App
+      working-directory: ./frontend
+      run: |
+        npm ci
+        ng build
+
+    - name: Install Backend Dependencies
+      working-directory: ./backend
+      run: npm ci
+
+    - name: Create Deployment Archive
+      run: |
+        mkdir deploy
+        cp -r backend deploy/backend
+        cp -r frontend/dist deploy/frontend
+
+    - name: Upload files via SSH
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        source: "deploy/*"
+        target: ${{ secrets.REMOTE_DIR }}
