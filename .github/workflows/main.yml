@@ -37,11 +37,24 @@ jobs:
         cp -r backend deploy/backend
         cp -r frontend/dist deploy/frontend
 
-    - name: Upload files via SSH
+    - name: Upload files via SFTP
       uses: appleboy/scp-action@v0.1.4
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SFTP_USERNAME }}
+        password: ${{ secrets.SFTP_PASSWORD }}
+        source: "deploy/*"
+        target: ${{ secrets.REMOTE_DIR }}
+        port: 22
+        protocol: sftp
+        
+    - name: Restart backend with SSH (PM2)
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
-        source: "deploy/*"
-        target: ${{ secrets.REMOTE_DIR }}
+        script: |
+          cd ${{ secrets.REMOTE_DIR }}/deploy/backend
+          npm install
+          pm2 restart myapp || pm2 start index.js --name myapp
