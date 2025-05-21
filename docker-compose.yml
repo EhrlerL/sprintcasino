@@ -3,13 +3,25 @@ services:
   backend:
     build: ./backend
     ports:
-      - "3000:3000"
+      - "3000"
     restart: unless-stopped
 
   frontend:
     build: ./frontend
     ports:
-      - "80:80"
+      - "80"
     restart: unless-stopped
     depends_on:
       - backend
+
+  proxy:
+    container_name: proxy
+    image: haproxy:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
