@@ -81,13 +81,13 @@ export class SocketService {
   }
 
   calculateMedian(votes: string[]): string {
-    votes.sort();
     let newVotes: number[] = [];
     votes.forEach((vote) => {
       if (vote !== "?" && vote !== "∞" && vote !== "☕️" && vote !== "Keine" && vote !== "-" && vote !== null) {
         newVotes.push(parseInt(vote));
       }
     });
+    newVotes.sort((a, b) => a - b);
     if (newVotes.length == 0) {
       return "-";
     }
