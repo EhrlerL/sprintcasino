@@ -5,6 +5,7 @@ planning poker angular app
  - Theme selector: icon is set to "light" (sun-emoji) when browser prefers darkmode
  - Theme selector: sun emoji looks ugly in Safari and Firefox
  - Name Input: does not save when pressing enter
+ - Picking Status: green status light is not properly centered vertically
 
 ## Other Future Changes
  - Indicator for amount of players in the lobby
