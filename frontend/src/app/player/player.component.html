@@ -25,12 +25,12 @@
             }">
             {{player.value.name}}
             <!-- STATUS -->
-            <div *ngIf="player.value.vote; else notSelected">
+            <ng-container *ngIf="player.value.vote; else notSelected">
                 <div class="inline-grid *:[grid-area:1/1]">
                     <div class="status status-success animate-ping"></div>
                     <div class="status status-success"></div>
                 </div>
-            </div>
+            </ng-container>
             <ng-template #notSelected>
                 <div class="inline-grid *:[grid-area:1/1]">
                     <div class="status status-error animate-ping"></div>
